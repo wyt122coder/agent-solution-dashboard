@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080a21">
+<title>Agent Solution 社区贡献看板 · openJiuwen</title>
+<link rel="stylesheet" href="common-delivery.css">
+<link rel="stylesheet" href="sig-calendar.css">
+<script src="common-delivery-data.js" defer></script>
+<script src="common-delivery.js" defer></script>
+<script src="sig-calendar.js" defer></script>
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #15172f; --muted: #545971; --accent: #4944bc;
+    --line: #e5e7f1; --surface: #fff; --paper: #f3f4fa;
+    --topbar-height: 70px;
+    font: 16px/1.55 Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    font-synthesis: none;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topbar-height) + 16px); }
+  body { margin: 0; color: var(--ink); background: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid #7668f5; outline-offset: 4px; }
+  .wrap { width: min(1280px, calc(100% - 112px)); margin-inline: auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .skip { position: fixed; z-index: 10; top: 8px; left: 12px; padding: 10px 16px; background: white; color: var(--ink); transform: translateY(-160%); }
+  .skip:focus { transform: none; }
+  .topbar { position: sticky; z-index: 5; top: 0; height: var(--topbar-height); color: #f5f5ff; background: #0c0d25; border-bottom: 1px solid #ffffff17; }
+  .topbar .wrap { height: 100%; display: flex; align-items: center; gap: 38px; }
+  .wordmark { font-size: 22px; line-height: 1; letter-spacing: -.055em; font-weight: 780; }
+  .nav { display: flex; align-items: center; gap: 28px; color: #b9bdd8; font-size: 14px; }
+  .nav a { padding-block: 23px; position: relative; white-space: nowrap; }
+  .nav a:hover, .nav a[aria-current] { color: #fff; }
+  .nav a[aria-current]::after { content: ""; position: absolute; bottom: 0; background: #a99bff; height: 2px; inset-inline: 0; }
+  .repository { margin-inline-start: auto; border: 1px solid #ffffff32; border-radius: 7px; padding: 7px 12px; font-size: 13px; color: #e1e2f7; white-space: nowrap; }
+  .repository:hover { background: #ffffff10; }
+  .external { margin-inline-start: 6px; }
+  .topbar.light { background: #fff; color: var(--ink); border-color: var(--line); }
+  .topbar.light .nav { color: var(--muted); }
+  .topbar.light .nav a:hover, .topbar.light .nav a[aria-current] { color: var(--accent); }
+  .topbar.light .repository { color: var(--accent); border-color: var(--line); }
+  .topbar.light .repository:hover { background: #f2f0ff; }
+
+  .hero { position: relative; isolation: isolate; color: #f7f9ff; overflow: hidden; background: #02050d; }
+  .hero-media { position: absolute; z-index: -2; inset: 0; pointer-events: none; }
+  .hero-media picture, .hero-media img, .hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-media img, .hero-media video { display: block; object-fit: cover; object-position: center; }
+  .hero-media video { visibility: hidden; }
+  .hero-media video.is-ready { visibility: visible; }
+  .hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, #02050deb 0%, #03091d94 34%, transparent 63%),
+      linear-gradient(0deg, #02050df2 0%, transparent 27%);
+  }
+  .hero .wrap { position: relative; min-height: min(780px, calc(100svh - var(--topbar-height))); display: grid; grid-template-rows: 1fr auto; }
+  .hero-body { display: grid; align-items: center; min-height: 495px; }
+  .hero-content { width: min(100%, 640px); padding-block: 72px 58px; }
+  .project { margin: 0 0 18px; font-size: clamp(18px, 1.8vw, 24px); font-weight: 620; letter-spacing: .015em; color: #a8d6ff; }
+  h1 { margin: 0; font-size: clamp(42px, 5.1vw, 76px); line-height: 1.13; letter-spacing: -.045em; font-weight: 740; white-space: nowrap; }
+  .intro { color: #c0c3df; margin: 20px 0 38px; font-size: clamp(15px, 1.46vw, 20px); }
+  .hero-numbers { display: grid; grid-template-columns: .95fr .85fr 1.17fr; gap: 20px; max-width: 585px; margin: 0; padding-block: 8px; }
+  dl { margin: 0; }
+  dt, dd { margin: 0; }
+  .hero-numbers > div + div { border-inline-start: 1px solid #c6c3ff35; padding-inline-start: 20px; }
+  .hero-numbers dt { color: #c9cbea; font-size: 14px; white-space: nowrap; }
+  .hero-numbers dd { font-size: clamp(35px, 4.4vw, 62px); font-weight: 645; line-height: 1.2; letter-spacing: -.055em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .hero-numbers small { margin-inline-start: 5px; font-size: clamp(11px, 1.2vw, 16px); color: #c9cbea; font-weight: 500; letter-spacing: 0; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px 19px; margin-top: 37px; }
+  .primary { display: inline-flex; align-items: center; gap: 18px; justify-content: center; background: #bfdfff; color: #071b37; padding: 11px 17px; border: 1px solid #d2eaff; border-radius: 7px; font-weight: 660; font-size: 14px; }
+  .primary:hover { background: #def0ff; }
+  .snapshot { color: #c3c4e0; font-size: 12px; white-space: nowrap; }
+  .support { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, .75fr) minmax(0, .9fr) minmax(0, 1.18fr) minmax(0, 1.32fr); padding-block: 25px 29px; margin-bottom: 35px; border-block: 1px solid #d1ccff34; background: linear-gradient(90deg, #17173746, #34305735); }
+  .support > div { padding-inline: clamp(12px, 2.3vw, 34px); }
+  .support > div + div { border-inline-start: 1px solid #d1ccff34; }
+  .support dt { font-size: 13px; color: #c3c4e2; white-space: nowrap; }
+  .support dd { font-size: clamp(23px, 2.5vw, 37px); letter-spacing: -.035em; font-weight: 630; line-height: 1.17; font-variant-numeric: tabular-nums; }
+  .support small { display: block; margin-top: 5px; font-size: 12px; line-height: 1.55; color: #bfc1dc; font-weight: 450; letter-spacing: 0; }
+  .support-note { display: block; }
+
+  .data { background: var(--paper); padding-block: 55px 64px; }
+  .data-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px 24px; margin-bottom: 22px; }
+  .data-head h2 { margin: 0; font-size: clamp(26px, 3.1vw, 42px); letter-spacing: -.04em; }
+  .data-head time { color: var(--muted); font-size: 13px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px 30px 24px; }
+  .panel + .panel { margin-top: 24px; }
+  .panel-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 18px; margin-bottom: 18px; }
+  .panel-heading h3 { font-size: 23px; font-weight: 680; margin: 0; letter-spacing: -.025em; }
+  .panel-heading p { font-size: 13px; margin: 0; color: var(--muted); }
+  .table-scroll { overflow-x: auto; border-radius: 7px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; line-height: 1.35; font-variant-numeric: tabular-nums; }
+  .comparison-table { min-width: 720px; }
+  th, td { padding: 13px 15px; border-bottom: 1px solid var(--line); text-align: right; }
+  thead th { background: #f6f6fd; color: #434761; font-size: 12px; white-space: nowrap; font-weight: 630; }
+  th:first-child { text-align: left; }
+  tbody th { font-weight: 650; white-space: nowrap; }
+  .branch-id { display: block; color: var(--muted); font: 11px/1.4 ui-monospace, monospace; margin-top: 3px; }
+  .hint { font-size: 12px; color: var(--muted); margin: 14px 0 0; }
+  .filter { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .filter[hidden] { display: none; }
+  .filter button { border: 1px solid var(--line); background: #fff; color: #444862; border-radius: 6px; font-size: 13px; padding: 7px 12px; }
+  .filter button:hover { background: #f2f0ff; }
+  .filter button[aria-pressed="true"] { background: #eae7ff; border-color: #d6d0fb; color: #4034a5; font-weight: 650; }
+  .comparison-table tbody tr:hover { background: #fbfaff; }
+  .comparison-table th:first-child { width: 17%; }
+  .comparison-table td.selected { background: #fbfaff; }
+  .comparison-table thead .selected { background: #eeebfc; color: #4c3eb4; }
+  .meter { display: flex; align-items: center; gap: 13px; min-width: 101px; justify-content: flex-end; }
+  .meter-track { position: relative; height: 7px; min-width: 38px; flex: 1; background: #ebe9f9; border-radius: 100px; overflow: hidden; }
+  .meter-track.is-signed { overflow: visible; }
+  .meter-track.is-signed::after { content: ""; position: absolute; top: -2px; bottom: -2px; left: var(--meter-zero); width: 1px; background: #9189ae; }
+  .meter-fill { position: absolute; top: 0; height: 100%; background: linear-gradient(90deg, #6660e0, #8a61d7); border-radius: inherit; }
+  .meter-fill.is-negative { background: #9c583e; }
+  .comparison-table td:nth-child(2) { min-width: 154px; }
+  .meter-value { min-width: 3ch; }
+  .comparison-table td:nth-child(2) .meter-value { min-width: 8ch; }
+  .comparison-table td.selected .meter-value { font-weight: 680; }
+  .comparison-table tfoot > tr { background: #eeecfb; font-weight: 700; }
+  .comparison-table tfoot th, .comparison-table tfoot td { border-bottom: 0; }
+  .panel-links { display: flex; flex-wrap: wrap; gap: 5px 16px; margin-inline-start: auto; }
+  .panel-link { color: var(--accent); font-size: 13px; font-weight: 640; }
+  .panel-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .composition-stock { padding: 15px 18px 17px; margin-bottom: 23px; background: #f6f6fd; border-radius: 9px; }
+  .composition-subhead { display: flex; flex-wrap: wrap; gap: 3px 13px; align-items: baseline; margin-bottom: 12px; }
+  .composition-subhead h4 { margin: 0; font-size: 15px; }
+  .composition-subhead p { margin: 0; font-size: 12px; color: var(--muted); }
+  .composition-stock dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 18px; }
+  .composition-stock dt { color: var(--muted); font-size: 12px; }
+  .composition-stock dd { line-height: 1.3; font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .comparison-table.composition-table { min-width: 640px; }
+  .composition-table .meter-value { min-width: 7ch; }
+  .rank-summary { margin: -4px 0 14px; color: var(--muted); font-size: 13px; }
+  .ranking-table { min-width: 330px; }
+  .ranking-table :is(th, td):nth-child(2) { text-align: left; }
+  .ranking-table th:first-child { width: 13%; }
+  .ranking-table th:last-child { width: 46%; }
+  .ranking-table td { overflow-wrap: anywhere; }
+  .ranking-account { color: var(--accent); font-weight: 650; }
+  .ranking-account:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .ranking-name { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+  .methods { margin-top: 24px; }
+  .methods summary { cursor: pointer; font-size: 15px; font-weight: 670; }
+  .methods h4 { margin: 17px 0 0; font-size: 14px; }
+  .methods .hint { margin-top: 9px; }
+  .methods ul { margin: 12px 0 0; padding-left: 19px; color: var(--muted); font-size: 13px; }
+  .methods li + li { margin-top: 7px; }
+  .release-heading { margin-bottom: 6px; }
+  .release-guide { margin: 0 0 13px; color: var(--muted); font-size: 12px; }
+  .release-matrix { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; }
+  .release-platform, .release-repo-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 9px; padding: 9px 13px; }
+  .release-platform { padding-block: 11px; background: #eeebfc; font-size: 14px; }
+  .release-platform > strong::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-inline-end: 8px; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+  .release-repo-bar { background: #f6f6fd; border-block: 1px solid var(--line); }
+  .release-repo-bar h4 { margin: 0; font-size: 13px; font-weight: 700; }
+  .release-repo-subtitle, .release-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .release-count { margin-inline-start: auto; }
+  .release-version { padding: 1px 7px; border: 1px solid #ded8f8; border-radius: 99px; color: var(--accent); background: #eeebfc; font-size: 11px; }
+  .release-categories { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; padding: 9px; }
+  .release-stack { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .release-stack > .release-category { flex: 1; }
+  .release-category { min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: #f6f6fc; }
+  .release-category h5 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; margin: 0 2px 7px; color: var(--ink); font-size: 12px; }
+  .release-category-count { color: var(--muted); font-size: 11px; font-weight: 480; font-variant-numeric: tabular-nums; }
+  .release-feature { display: block; width: 100%; min-height: 34px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); text-align: left; font-size: 12px; line-height: 1.5; font-weight: 590; overflow-wrap: anywhere; }
+  .release-feature + .release-feature { margin-top: 5px; }
+  .release-feature.is-key { border-color: #ecd5bd; color: #86460c; background: #fffdf9; }
+  .release-feature:hover, .release-feature[aria-expanded="true"] { border-color: var(--accent); }
+  .release-feature:focus-visible { outline-offset: 1px; }
+  .release-preview { position: fixed; z-index: 9; width: min(420px, calc(100vw - 24px)); max-height: min(360px, 62vh); overflow: auto; padding: 13px 15px; background: var(--surface); border: 1px solid #ded8f8; border-radius: 10px; box-shadow: 0 12px 35px #22204d26; }
+  .release-preview h4 { margin: 0 28px 5px 0; font-size: 14px; }
+  .release-preview p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; }
+  .release-preview-close { position: absolute; top: 7px; right: 8px; padding: 2px 7px; color: var(--accent); border: 0; background: transparent; border-radius: 5px; font-size: 15px; }
+  .release-preview-close:hover { background: #eeebfc; }
+  footer { border-top: 1px solid var(--line); background: #fff; font-size: 13px; color: var(--muted); }
+  footer .wrap { padding-block: 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+  @media (max-width: 1100px) {
+    .wrap { width: calc(100% - 72px); }
+    .topbar .wrap { gap: 22px; }
+    .nav { gap: 16px; font-size: 13px; }
+    .hero-numbers { gap: 13px; }
+    .hero-numbers > div + div { padding-inline-start: 13px; }
+    .hero-numbers dd { font-size: clamp(29px, 4.45vw, 52px); }
+  }
+  @media (max-width: 950px) {
+    .release-categories { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .release-stack { display: contents; }
+  }
+  @media (max-width: 800px) {
+    :root { --topbar-height: 60px; }
+    .wrap { width: calc(100% - 38px); }
+    .topbar .wrap { gap: 19px; }
+    .nav a { padding-block: 18px; }
+    .nav #nav-methods { display: none; }
+    .repository { font-size: 11px; padding: 6px 8px; }
+    .hero .wrap { min-height: min(740px, calc(100svh - var(--topbar-height))); }
+    .hero-body { min-height: 0; }
+    .hero-content { padding-block: 44px 48px; }
+    .hero::before { background: linear-gradient(90deg, #02050dc9, #03091d4d 70%), linear-gradient(0deg, #02050df2 0%, transparent 30%); }
+    .intro { margin: 13px 0 22px; }
+    .project { margin-bottom: 10px; }
+    .hero-numbers { max-width: 460px; }
+    .hero-actions { margin-top: 24px; }
+    .support { margin-bottom: 25px; }
+    .panel { padding-inline: 18px; }
+    .data { padding-block: 36px 43px; }
+  }
+  @media (max-width: 720px) {
+    :root { --topbar-height: 88px; }
+    .topbar .wrap {
+      display: grid;
+      grid-template: "brand repository" 44px "navigation navigation" 1fr / minmax(0, 1fr) auto;
+      gap: 0 12px;
+    }
+    .topbar .wordmark { grid-area: brand; justify-self: start; }
+    .topbar .repository { grid-area: repository; }
+    .topbar .nav { grid-area: navigation; align-self: stretch; align-items: stretch; }
+    .nav a { display: inline-flex; align-items: center; padding-block: 0; }
+  }
+  @media (max-width: 620px) {
+    .nav .nav-release { display: none; }
+    .release-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .composition-stock dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .panel-links { flex-basis: 100%; margin-inline-start: 0; }
+    .support { grid-template-columns: repeat(6, minmax(0, 1fr)); padding: 0; }
+    .support > div { grid-column: span 2; padding: 14px 9px; }
+    .support > div:nth-child(n+4) { grid-column: span 3; border-top: 1px solid #d1ccff34; }
+    .support > div:nth-child(4) { border-inline-start: 0; }
+  }
+  @media (max-width: 480px) {
+    .release-count { width: 100%; margin-inline-start: 0; }
+    .wordmark { font-size: 19px; }
+    .nav { gap: 14px; }
+    .nav #nav-overview { display: none; }
+    h1 { font-size: clamp(32px, 10vw, 46px); }
+    .data-head { align-items: flex-start; flex-direction: column; gap: 3px; }
+  }
+  @media (max-width: 400px) {
+    .release-categories { grid-template-columns: 1fr; }
+    .nav { gap: 8px; }
+    .topbar .wrap { width: calc(100% - 26px); }
+    .nav { font-size: 12px; }
+    .repository { font-size: 0; }
+    .repository .external { margin-inline-start: 0; font-size: 13px; }
+  }
+  @media (max-width: 800px), (prefers-reduced-motion: reduce) {
+    .hero-media video.is-ready { visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a href="#data" class="skip">跳到贡献数据</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="#top">openJiuwen</a>
+    <nav class="nav" aria-label="页面导航">
+      <a href="#top" id="nav-overview" aria-current="location">总览</a>
+      <a href="#data" id="nav-data">贡献数据</a>
+      <a href="#methods" id="nav-methods">统计口径</a>
+      <a href="#common-delivery" id="nav-common">common特性分布</a>
+      <a class="nav-release" href="#october-features">10 月特性</a>
+      <a href="#sig-calendar" id="nav-sig-calendar">SIG 会议日历</a>
+    </nav>
+    <a class="repository" href="https://atomgit.com/openJiuwen/agent-solution" target="_blank" rel="noopener noreferrer">AtomGit 仓库<span class="external" aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<main>
+  <section class="hero" id="top" aria-labelledby="title">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 620px)" srcset="assets/banner/poster-bg-mobile.png">
+        <img src="assets/banner/poster-bg.png" alt="" fetchpriority="high">
+      </picture>
+      <video id="hero-video" data-src="assets/banner/planet.mp4" preload="none" muted loop playsinline></video>
+    </div>
+    <div class="wrap">
+      <div class="hero-body">
+        <div class="hero-content">
+          <p class="project">Agent Solution</p>
+          <h1 id="title">社区贡献看板</h1>
+          <p class="intro">汇聚开发者，共建行业智能体解决方案</p>
+          <dl class="hero-numbers">
+            <div><dt>社区参与账号</dt><dd>145</dd></div>
+            <div><dt>合入贡献者</dt><dd>97</dd></div>
+            <div><dt>行业有效代码</dt><dd>50.05<small>万行</small></dd></div>
+          </dl>
+          <div class="hero-actions">
+            <a class="primary" href="#data">查看贡献数据 <span aria-hidden="true">↓</span></a>
+            <time class="snapshot" datetime="2026-11-20T09:54:10+08:00">数据截至 2026-11-20 09:54</time>
+          </div>
+        </div>
+      </div>
+      <dl class="support" aria-label="仓库指标">
+        <div><dt>PR 提交</dt><dd>1,224<small>已合入 948</small></dd></div>
+        <div><dt>Issue</dt><dd>824<small>开放 119</small></dd></div>
+        <div><dt>协作讨论</dt><dd>430<small>行内评论 74</small></dd></div>
+        <div><dt>行业方向</dt><dd>8<small>电力、冶金、制造、石油化工、交通运输、科研、公共事业、金融</small></dd></div>
+        <div><dt>远端分支</dt><dd>12<small>主干分支main、通用开发分支common、行业开发分支8个<span class="support-note">另有版本分支 0.1.1、v0.1.4-rc1</span></small></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="data" id="data" aria-labelledby="data-title">
+    <div class="wrap">
+      <div class="data-head">
+        <h2 id="data-title">贡献数据</h2>
+        <time datetime="2026-11-20T09:54:10+08:00">统计快照 · 2026-11-20 09:54（北京时间）</time>
+      </div>
+      <section class="panel" id="branches" aria-labelledby="branches-title">
+        <div class="panel-heading">
+          <h3 id="branches-title">基础分支统计</h3>
+          <p>主干分支与通用开发分支</p>
+        </div>
+        <div class="filter" role="group" aria-label="选择基础分支对比指标" hidden>
+          <button type="button" data-metric="code" aria-pressed="true" aria-controls="base-table">源代码存量</button>
+          <button type="button" data-metric="opened" aria-pressed="false" aria-controls="base-table">PR 提交</button>
+          <button type="button" data-metric="merged" aria-pressed="false" aria-controls="base-table">PR 合入</button>
+          <button type="button" data-metric="issues" aria-pressed="false" aria-controls="base-table">关联 Issue</button>
+          <button type="button" data-metric="authors" aria-pressed="false" aria-controls="base-table">PR 发起账号</button>
+        </div>
+        <p class="sr-only" role="status"></p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="基础分支数据表">
+          <table class="comparison-table" id="base-table">
+            <thead><tr><th scope="col">分支</th><th scope="col" data-column="code">源代码存量（万行）</th><th scope="col" data-column="opened">PR 提交</th><th scope="col" data-column="merged">PR 合入</th><th scope="col" data-column="issues">关联 Issue</th><th scope="col" data-column="authors">PR 发起账号</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">main<span class="branch-id">主干分支</span></th><td>99.4098</td><td>80</td><td>29</td><td>15</td><td>25</td></tr>
+              <tr><th scope="row">common<span class="branch-id">通用开发分支</span></th><td>145.2910</td><td>1,014</td><td>831</td><td>438</td><td>78</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint">按各分支完整源码快照统计，包含 <code>common/</code>。两者有共享代码，分别展示存量。</p>
+      </section>
+
+      <section class="panel" id="industries" aria-labelledby="industries-title">
+        <div class="panel-heading">
+          <h3 id="industries-title">行业开发分支统计</h3>
+          <p>覆盖 8 个行业开发分支</p>
+          <div class="panel-links">
+            <a class="panel-link" href="#composition">查看代码构成 <span aria-hidden="true">↓</span></a>
+            <a class="panel-link" href="#contributors">查看贡献者 <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="filter" role="group" aria-label="选择行业排行指标" hidden>
+          <button type="button" data-metric="code" aria-pressed="true" aria-controls="industry-table">有效代码</button>
+          <button type="button" data-metric="opened" aria-pressed="false" aria-controls="industry-table">PR 提交</button>
+          <button type="button" data-metric="merged" aria-pressed="false" aria-controls="industry-table">PR 合入</button>
+          <button type="button" data-metric="issues" aria-pressed="false" aria-controls="industry-table">关联 Issue</button>
+          <button type="button" data-metric="authors" aria-pressed="false" aria-controls="industry-table">PR 发起账号</button>
+        </div>
+        <p class="sr-only" role="status"></p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="行业分支数据表">
+          <table class="comparison-table" id="industry-table">
+            <thead><tr><th scope="col">行业 / 分支</th><th scope="col" data-column="code">有效代码（万行）</th><th scope="col" data-column="opened">PR 提交</th><th scope="col" data-column="merged">PR 合入</th><th scope="col" data-column="issues">关联 Issue</th><th scope="col" data-column="authors">PR 发起账号</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">制造<span class="branch-id">manufacturing</span></th><td>35.8976</td><td>5</td><td>4</td><td>0</td><td>3</td></tr>
+              <tr><th scope="row">石油化工<span class="branch-id">oil-chem</span></th><td>6.7827</td><td>37</td><td>20</td><td>0</td><td>11</td></tr>
+              <tr><th scope="row">冶金<span class="branch-id">metallurgy</span></th><td>4.1354</td><td>3</td><td>3</td><td>0</td><td>2</td></tr>
+              <tr><th scope="row">电力<span class="branch-id">electric</span></th><td>1.7540</td><td>51</td><td>36</td><td>0</td><td>14</td></tr>
+              <tr><th scope="row">交通运输<span class="branch-id">transportation</span></th><td>0.9315</td><td>9</td><td>5</td><td>2</td><td>6</td></tr>
+              <tr><th scope="row">科研<span class="branch-id">pub-ai4s</span></th><td>0.5503</td><td>4</td><td>2</td><td>0</td><td>3</td></tr>
+              <tr><th scope="row">公共事业<span class="branch-id">pub-gov</span></th><td>0.0000</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><th scope="row">金融<span class="branch-id">finance</span></th><td>0.0000</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">行业合计</th><td>50.0515</td><td>110</td><td>71</td><td>3</td><td>38</td></tr></tfoot>
+          </table>
+        </div>
+        <p class="hint">行业有效代码以各分支与 main 的共同祖先为基线，剔除 <code>common/</code> 后统计源码净增量。关联 Issue 按正式关联归属。PR 发起账号按分支去重，行业合计按 8 个行业开发分支统一去重。</p>
+      </section>
+
+      <section class="panel" id="composition" aria-labelledby="composition-title">
+        <div class="panel-heading">
+          <h3 id="composition-title">开发分支代码构成</h3>
+          <p>单位：行</p>
+        </div>
+        <section class="composition-stock" aria-labelledby="composition-common-title">
+          <div class="composition-subhead">
+            <h4 id="composition-common-title"><code>common</code> 通用开发分支</h4>
+            <p>完整存量</p>
+          </div>
+          <dl>
+            <div><dt>源码行</dt><dd>810,332</dd></div>
+            <div><dt>测试行</dt><dd>642,578</dd></div>
+            <div><dt>配置行（估算）</dt><dd>30,328</dd></div>
+            <div><dt>文档行（估算）</dt><dd>95,089</dd></div>
+          </dl>
+        </section>
+        <section id="composition-net" aria-labelledby="composition-net-title">
+          <div class="composition-subhead">
+            <h4 id="composition-net-title">行业分支净增量</h4>
+            <p>剔除 <code>common/</code> 后与各自的 <code>main</code> 共同祖先比较</p>
+          </div>
+          <div class="filter" role="group" aria-label="选择代码构成排行指标" hidden>
+            <button type="button" data-metric="source" aria-pressed="true" aria-controls="composition-table">源码行</button>
+            <button type="button" data-metric="tests" aria-pressed="false" aria-controls="composition-table">测试行</button>
+            <button type="button" data-metric="config" aria-pressed="false" aria-controls="composition-table">配置行</button>
+            <button type="button" data-metric="docs" aria-pressed="false" aria-controls="composition-table">文档行</button>
+          </div>
+          <p class="sr-only" role="status"></p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="行业分支代码构成数据表">
+            <table class="comparison-table composition-table" id="composition-table" aria-describedby="composition-hint">
+              <thead><tr><th scope="col">行业 / 分支</th><th scope="col" data-column="source">源码行</th><th scope="col" data-column="tests">测试行</th><th scope="col" data-column="config">配置行（估算）</th><th scope="col" data-column="docs">文档行（估算）</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">制造<span class="branch-id">manufacturing</span></th><td>211,833</td><td>147,143</td><td>1,221</td><td>52,958</td></tr>
+                <tr><th scope="row">石油化工<span class="branch-id">oil-chem</span></th><td>61,480</td><td>6,347</td><td>1,411</td><td>6,243</td></tr>
+                <tr><th scope="row">冶金<span class="branch-id">metallurgy</span></th><td>38,487</td><td>2,867</td><td>296</td><td>5,337</td></tr>
+                <tr><th scope="row">电力<span class="branch-id">electric</span></th><td>15,117</td><td>2,423</td><td>283</td><td>9,507</td></tr>
+                <tr><th scope="row">交通运输<span class="branch-id">transportation</span></th><td>8,887</td><td>428</td><td>68</td><td>1,744</td></tr>
+                <tr><th scope="row">科研<span class="branch-id">pub-ai4s</span></th><td>5,284</td><td>219</td><td>192</td><td>1,259</td></tr>
+                <tr><th scope="row">公共事业<span class="branch-id">pub-gov</span></th><td>0</td><td>0</td><td>−4</td><td>221</td></tr>
+                <tr><th scope="row">金融<span class="branch-id">finance</span></th><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              </tbody>
+              <tfoot><tr><th scope="row">8 个行业合计</th><td>341,088</td><td>159,427</td><td>3,467</td><td>77,269</td></tr></tfoot>
+            </table>
+          </div>
+          <p class="hint" id="composition-hint">行业源码与测试合计 500,515 行，对应总览的行业有效代码。负数表示净减少。</p>
+        </section>
+        <p class="hint"><strong><code>0.1.1</code> 版本分支</strong> 按同一基线口径统计，净增量为源码 0 行、测试 0 行、配置 0 行、文档 0 行。</p>
+        <p class="hint"><strong><code>v0.1.4-rc1</code> 版本分支</strong> 按同一基线口径统计，净增量为源码 0 行、测试 0 行、配置 2 行、文档 450 行。</p>
+        <p class="hint">配置与文档按文件用途估算。配置行排除样本数据、预置数据和依赖锁文件。</p>
+      </section>
+
+      <section class="panel" id="contributors" aria-labelledby="contributors-title">
+        <div class="panel-heading">
+          <h3 id="contributors-title">开发分支贡献者 Top 10</h3>
+          <p>按 PR 提交数排序</p>
+        </div>
+        <div id="contributor-ranking" hidden>
+          <div class="filter" id="contributor-branches" role="group" aria-label="选择贡献者榜单的分支">
+            <button type="button" data-branch="common" aria-controls="contributor-table" aria-pressed="true">通用开发 · common</button>
+            <button type="button" data-branch="manufacturing" aria-controls="contributor-table" aria-pressed="false">制造</button>
+            <button type="button" data-branch="oil-chem" aria-controls="contributor-table" aria-pressed="false">石油化工</button>
+            <button type="button" data-branch="metallurgy" aria-controls="contributor-table" aria-pressed="false">冶金</button>
+            <button type="button" data-branch="electric" aria-controls="contributor-table" aria-pressed="false">电力</button>
+            <button type="button" data-branch="transportation" aria-controls="contributor-table" aria-pressed="false">交通运输</button>
+            <button type="button" data-branch="pub-ai4s" aria-controls="contributor-table" aria-pressed="false">科研</button>
+            <button type="button" data-branch="pub-gov" aria-controls="contributor-table" aria-pressed="false">公共事业</button>
+            <button type="button" data-branch="finance" aria-controls="contributor-table" aria-pressed="false">金融</button>
+            <button type="button" data-branch="0.1.1" aria-controls="contributor-table" aria-pressed="false">版本 · 0.1.1</button>
+            <button type="button" data-branch="v0.1.4-rc1" aria-controls="contributor-table" aria-pressed="false">版本 · v0.1.4-rc1</button>
+          </div>
+          <p class="rank-summary" id="contributor-summary" role="status"></p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="开发分支贡献者排名">
+            <table class="ranking-table" id="contributor-table" aria-describedby="contributors-hint">
+              <thead><tr><th scope="col">排名</th><th scope="col">AtomGit 账号</th><th scope="col" aria-sort="descending">PR 提交数</th></tr></thead>
+              <tbody id="contributor-rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <noscript><p class="hint">启用 JavaScript 后可按分支查看贡献者排名。</p></noscript>
+        <p class="hint" id="contributors-hint">按 PR 目标分支和发起账号统计，包含开放、已合入和关闭未合入的 PR。提交数相同按账号排序，最多显示 10 个账号。</p>
+      </section>
+
+      <details class="panel methods" id="methods">
+        <summary>统计口径</summary>
+        <ul>
+          <li>社区参与账号按观测到的 PR、Issue 和非机器人 PR 评论账号去重。合入贡献者为至少有一个 PR 已合入的账号。</li>
+          <li>协作讨论统计非作者、非已确认机器人账号的 PR 评论，其中 74 条为行内评论。</li>
+          <li>PR 按目标分支归属，发起账号按分支去重。全仓 PR 含 6 个目标分支当前已不在远端的 PR。Issue 按有记录的正式关联归属，0 表示未记录到关联。</li>
+          <li>代码量按源代码行统计。行业净增扣除共同基线继承代码与同内容复制，删除冲减净增。1 万行等于 10,000 行。</li>
+          <li>分支贡献者按 PR 目标分支和 AtomGit 发起账号统计，所有状态的 PR 都计入提交数。账号在各分支内独立统计。</li>
+        </ul>
+        <h4>四类代码构成</h4>
+        <p class="hint">四类均使用 cloc 计入的有效行数，扣除空行和识别到的注释。</p>
+        <ul>
+          <li><strong>源码行</strong>包括原统计口径识别的程序代码和脚本，例如 Java、Python、TypeScript，扣除单列的测试行。</li>
+          <li><strong>测试行</strong>统计测试目录或符合测试文件命名的源码，例如 <code>tests/</code>、<code>test_*.py</code>、<code>*Test.java</code>、<code>*.spec.ts</code>。</li>
+          <li><strong>配置行</strong>按文件用途估算，计入 YAML、TOML、Maven 描述文件、依赖清单及可识别的 JSON 或 XML 配置。排除样本数据、预置数据和依赖锁文件。</li>
+          <li><strong>文档行</strong>按文件用途估算，计入 Markdown、reStructuredText、AsciiDoc 和可识别的说明文本，例如 README、许可证和第三方软件声明。</li>
+        </ul>
+        <p class="hint">common 展示完整存量。行业分支和版本分支剔除 <code>common/</code> 后，与各自的 main 共同祖先比较净增量。行业源码行加测试行对应总览的行业有效代码。配置和文档基于已计数的文件，尚未逐一核验换路径后的原样复制和未被 cloc 计数的文件。</p>
+      </details>
+      <section class="panel common-delivery" id="common-delivery" aria-labelledby="common-delivery-title">
+        <header class="common-delivery-header">
+          <div>
+            <h3 id="common-delivery-title">common特性分布</h3>
+            <p>展开模块查看能力、10 月代表性合入记录和代码入口。</p>
+          </div>
+          <div class="common-delivery-nav">
+            <a href="common-delivery.html">独立预览 ↗</a>
+          </div>
+        </header>
+        <div data-common-delivery></div>
+        <noscript><p class="hint">启用 JavaScript 后可展开模块。也可查看 <a href="archify/common-capabilities.html">Archify 能力图</a>。</p></noscript>
+      </section>
+      <section class="panel" id="october-features" aria-labelledby="october-features-title">
+        <div class="panel-heading release-heading">
+          <h3 id="october-features-title">10 月新特性</h3>
+        </div>
+        <p class="release-guide">悬停可预览说明，点击可固定。暖色条目为重点特性。</p>
+        <div class="release-matrix">
+          <div class="release-platform">
+            <strong>openJiuwen</strong><span class="release-repo-subtitle">智能体平台</span>
+            <span class="release-count">30 项特性 · 8 项重点</span>
+          </div>
+          <section class="release-repo" aria-labelledby="release-agent-solution">
+            <div class="release-repo-bar">
+              <h4 id="release-agent-solution"><code>agent-solution</code></h4>
+              <span class="release-repo-subtitle">智能体解决方案</span>
+              <span class="release-version">v0.1.3</span>
+              <span class="release-count">12 项 · 重点 6</span>
+            </div>
+            <div class="release-categories">
+              <section class="release-category">
+                <h5>智能体客户端 <span class="release-category-count">1</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="面向 Node.js 服务与浏览器前端提供 TypeScript 版智能体客户端，并共用同一个 npm 包交付，Node 服务无需自写协议代码或额外引入 Java 服务，接入与维护成本更低。">
+                  <span class="release-feature-title">TypeScript 版智能体客户端</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>企业级多智能体 <span class="release-category-count">3</span></h5>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="直连模式下支持智能体的动态注册与发现，实例上线自动感知、下线自动移除，多实例按权重路由、故障自动切换，下游扩缩容、升级或故障时调用侧无需改配置即可自动跟随。">
+                  <span class="release-feature-title">智能体动态注册与发现</span><span class="sr-only">（重点特性）</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="智能体网关的调用方范围扩展到标准 A2A 兼容的智能体服务，无需依赖网关私有约定即可完成流式、非流式与任务发起等调用交互，标准客户端接入企业级多智能体网络更简单。">
+                  <span class="release-feature-title">标准 A2A 协议接入</span><span class="sr-only">（重点特性）</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="智能体服务对外部调用提供过载保护，过载时快速拒绝新请求并明确告知临时不可用，已受理任务不受影响，压力解除后自动恢复，避免服务长时间无响应或不可用。">
+                  <span class="release-feature-title">外部请求过载保护</span><span class="sr-only">（重点特性）</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>智能体运行时 <span class="release-category-count">3</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="智能体的调用与返回结果均可携带元数据，多轮交互与任务委派全程传递正确、互不混淆，上游业务逻辑直接读取结构化结果，无需从回复文字中提取。">
+                  <span class="release-feature-title">任务元数据双向传递</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="智能体运行时提供初始化扩展点，二开方不修改原库即可为智能体扩展护栏与工具，与原库、运行时一起打包部署，全程不侵入原始智能体代码。">
+                  <span class="release-feature-title">运行时智能体二开扩展</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="支持智能体从 Skill Hub 自动获取授权的 Skill，Skill 新增、升级或下架无需重新部署即可在下一请求生效，并且进行中的任务不受干扰，Skill 的运营迭代不再阻塞智能体服务的运行。">
+                  <span class="release-feature-title">动态 Skill 获取与热加载</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>核心框架扩展 <span class="release-category-count">2</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="向企业长任务场景提供单句压缩与结构化被动压缩两条机制，用户约束与关键决策等信息不再被压丢，压缩质量更稳定，模型调用次数有界、绝不反复空耗，长任务更稳、成本更省。">
+                  <span class="release-feature-title">上下文压缩</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="存量 Studio DSL 编排的智能体应用可在 Java 版直接加载与执行，内置 21 种节点类型覆盖编排控制、模型推理、Python 脚本等常用需求，运行行为与 Studio 原版保持一致，使存量智能体能够平滑迁移至 Java 技术栈。">
+                  <span class="release-feature-title">存量智能体兼容与迁移</span><span class="sr-only">（重点特性）</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>通用智能体 <span class="release-category-count">3</span></h5>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="新增确定性编排与交叉验证能力，按图纸严格执行、多视角独立作答、审计员复查结论，关键结论更可信；新增团队模板库，一句话即可按模板发起深度分析；完成数据权限治理，智能体与上游数据解耦，可独立交付、上游系统可替换。">
+                  <span class="release-feature-title">DeepAnalyze 智能体</span><span class="sr-only">（重点特性）</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="面向深度调研场景，自动完成多源检索、内容核查与报告撰写，产出结构完整的调研报告；报告引用与真实检索来源对应、可追溯，避免调研结论无据可查，开箱即用，亦是框架应用级开发的参考案例。">
+                  <span class="release-feature-title">Smartresearch Alpha 深度调研智能体</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="面向「意图识别」与「动态执行」的复合业务场景，同时提供意图识别分流与动态规划执行能力，无需分别引入、配置两套系统，统一提供任务规划、下游委派、本地 Skill 执行与用户交互能力。">
+                  <span class="release-feature-title">MOA 智能体</span><span class="sr-only">（重点特性）</span>
+                </button>
+              </section>
+            </div>
+          </section>
+          <section class="release-repo" aria-labelledby="release-agent-core">
+            <div class="release-repo-bar">
+              <h4 id="release-agent-core"><code>agent-core</code></h4>
+              <span class="release-repo-subtitle">智能体核心框架</span>
+              <span class="release-version">v0.1.20</span>
+              <span class="release-count">18 项 · 重点 2</span>
+            </div>
+            <div class="release-categories">
+              <section class="release-category">
+                <h5>可观测性 <span class="release-category-count">4</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="完整记录每次实际发送给模型的内容，供调试和运行分析查看，不改变模型回答。适用于检查输入内容是否正确、审计智能体行为及排查模型调用问题。">
+                  <span class="release-feature-title">提示词序列化到LLM用量元数据</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="补全模型、工具和知识检索全过程的运行记录，统一记录请求配置、回答结果、资源用量和错误类型。适用于排查跨环节调用问题、分析性能与成本，以及追踪智能体应用的异常。">
+                  <span class="release-feature-title">OTel Tracer埋点增强与 GenAI 语义属性补全</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="可按单个智能体开启或关闭运行追踪，并把不同服务中的模型和工具调用串成完整过程，未开启的智能体不受影响。适用于同一运行环境承载多个智能体时，只排查指定对象的问题。">
+                  <span class="release-feature-title">Agent实例级埋点开关</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="根据执行过程、产出和用户反馈定位任务失败原因，标出问题环节及依据并给出修复建议，建议不会自动生效。适用于任务失败后快速判断应调整技能、经验、流程还是工具。">
+                  <span class="release-feature-title">Agent轨迹诊断与归因</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>任务执行与调度 <span class="release-category-count">3</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="为智能体设置执行轮数和总时间预算，有进展时可适当延长，停滞时提醒调整策略，临近结束时优先整理已有结果。适用于复杂长任务，既避免过早失败，也防止反复空转和无限运行。">
+                  <span class="release-feature-title">主循环运行预算与进度跟踪</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="持续保存任务进度和已完成步骤，程序异常退出后可从断点继续；系统会定期检查未完成任务并尝试恢复。适用于多步骤、长时间运行的任务，也适合资源有限的单台服务器。">
+                  <span class="release-feature-title">Agent断点续执行</span><span class="sr-only">（重点特性）</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="多个智能体完成任务后，由验证者和挑战者从不同角度复核结果，发现关键问题就要求返工，并将失败反馈用于后续改进。适用于对结果质量要求高、需要减少漏检的团队协作任务。">
+                  <span class="release-feature-title">AgentTeams调度模式增强复核</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>模型调用与编排 <span class="release-category-count">5</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="支持大量模型请求同时处理，确保请求与回复准确对应；遇到超时、请求过多或临时故障会自动重试，连续故障时暂停调用并稍后恢复。适用于安全研判等需要同时处理大量请求、长时间运行的任务。">
+                  <span class="release-feature-title">LLMClient多线程模型调用管理</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="自动区分请求过多、临时故障、欠费、身份认证失效、内容超长和用户取消等情况，只对值得重试的错误进行重试，其余立即明确反馈。适用于减少网络波动造成的失败，并避免无效重试浪费时间和费用。">
+                  <span class="release-feature-title">模型调用错误分类与弹性重试</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="分别控制连接、开始响应和长时间无数据三种等待情况，允许模型长时间思考和生成长回答，同时快速发现连接异常。适用于复杂推理和长文本任务，减少因等待策略过于简单而中断。">
+                  <span class="release-feature-title">模型调用超时分层</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="统一管理多个模型及其分组，按预设顺序选择主模型，主模型不可用时自动切换备用模型。适用于需要集中配置模型、保障服务连续性的智能体、团队协作和定时任务。">
+                  <span class="release-feature-title">统一模型组</span>
+                </button>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="接入视觉与推理专用模型，并能按任务环节在专用模型和通用模型之间切换，切换异常时自动退回可用模型。适用于网页操作等既要看懂页面又要进行复杂决策的任务。">
+                  <span class="release-feature-title">Harness接入JEV模型</span>
+                </button>
+              </section>
+              <section class="release-category">
+                <h5>上下文与算力亲和 <span class="release-category-count">2</span></h5>
+                <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="在昇腾硬件上保存并复用模型的中间计算结果，减少重复计算，并在任务结束后释放资源。适用于多任务并行运行，可降低首字和整段回答的等待时间，提高整体处理效率。">
+                  <span class="release-feature-title">统一KVCache算力亲和生命周期管理</span>
+                </button>
+                <button class="release-feature is-key" type="button" aria-controls="release-preview" aria-expanded="false"
+                        data-description="长任务中自动精简过长的工具结果，将原文安全保存并在需要时取回，同时保留最近内容和关键结果。适用于步骤多、材料长的任务，减少重要约束、决策和文件信息被摘要遗漏的风险。">
+                  <span class="release-feature-title">上下文工具调用结果压缩卸载与装载</span><span class="sr-only">（重点特性）</span>
+                </button>
+              </section>
+              <div class="release-stack">
+                <section class="release-category">
+                  <h5>技能与工具 <span class="release-category-count">2</span></h5>
+                  <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                          data-description="让外部智能体也能使用平台已有的技能包，无需重复开发。适用于将外部编程或办公助手接入平台、复用既有能力的场景。">
+                    <span class="release-feature-title">三方Agent支持openJiuwen内置Skills</span>
+                  </button>
+                  <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                          data-description="将工具按组管理和启停，危险工具可快速隔离；技能按平台、应用和用户分层，只在需要时加载。适用于工具数量较多的系统，可降低运行成本、提高选择准确率并便于安全管理。">
+                    <span class="release-feature-title">工具分组与多层Skill作用域</span>
+                  </button>
+                </section>
+                <section class="release-category">
+                  <h5>交互与多模态 <span class="release-category-count">2</span></h5>
+                  <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                          data-description="智能体调用工具时，实时展示生成进度和调用信息，避免页面长时间没有反馈。适用于工具调用内容较长、多个工具并行或回答与操作交替出现的场景。">
+                    <span class="release-feature-title">LLM生成过程流式输出工具调用参数</span>
+                  </button>
+                  <button class="release-feature" type="button" aria-controls="release-preview" aria-expanded="false"
+                          data-description="支持用户在同一条消息中提交文字和多张图片，并保持图片顺序，智能体可直接理解图片后作答。适用于看图问答、截图分析等场景，无需先借助其他工具读取图片。">
+                    <span class="release-feature-title">图文多模态输入能力补全</span>
+                  </button>
+                </section>
+              </div>
+            </div>
+          </section>
+        </div>
+        <aside class="release-preview" id="release-preview" aria-labelledby="release-preview-title" hidden>
+          <h4 id="release-preview-title"></h4>
+          <button class="release-preview-close" type="button" aria-label="关闭说明">×</button>
+          <p id="release-preview-description"></p>
+        </aside>
+      </section>
+      <section class="panel" id="sig-calendar" aria-labelledby="sig-calendar-title">
+        <div class="panel-heading">
+          <h3 id="sig-calendar-title">SIG 会议日历</h3>
+        </div>
+        <div class="sig-calendar-layout" hidden>
+          <section class="sig-calendar-pane" aria-labelledby="sig-month-title">
+            <div class="sig-month-controls">
+              <button class="sig-control sig-arrow" type="button" data-sig-previous-month aria-label="上个月">‹</button>
+              <h4 id="sig-month-title" data-sig-month aria-live="polite"></h4>
+              <button class="sig-control sig-arrow" type="button" data-sig-next-month aria-label="下个月">›</button>
+            </div>
+            <div class="sig-weekdays" aria-hidden="true"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+            <div class="sig-calendar-days" data-sig-days role="group" aria-label="按日期查看会议"></div>
+            <p class="sig-calendar-legend"><span class="sig-confirmed">已确认会议</span><span>待确认例会</span></p>
+          </section>
+          <section class="sig-calendar-pane" aria-labelledby="sig-activities-title">
+            <div class="sig-activity-controls">
+              <h4 id="sig-activities-title" data-sig-activities-title aria-live="polite">近期活动</h4>
+              <select class="sig-control" data-sig-range aria-label="活动时间范围">
+                <option value="1">近 1 个月</option>
+                <option value="2" selected>近 2 个月</option>
+                <option value="6">近半年</option>
+              </select>
+              <button class="sig-control" type="button" data-sig-clear hidden>清除日期筛选</button>
+            </div>
+            <div class="sig-activity-list" data-sig-activities></div>
+            <div class="sig-pagination" data-sig-pagination aria-label="活动分页" hidden>
+              <button class="sig-control sig-arrow" type="button" data-sig-previous-page aria-label="上一页">‹</button>
+              <span data-sig-page-label aria-live="polite"></span>
+              <button class="sig-control sig-arrow" type="button" data-sig-next-page aria-label="下一页">›</button>
+            </div>
+          </section>
+        </div>
+        <noscript><p class="hint">启用 JavaScript 后可查看日历和近期活动。</p></noscript>
+      </section>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>openJiuwen · Agent Solution</span>
+    <div class="footer-links">
+      <a href="https://datastat.openeuler.org/zh/overview" target="_blank" rel="noopener noreferrer">星球素材 · openEuler</a>
+      <a href="#top">返回总览 ↑</a>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const panel = document.querySelector('#october-features');
+  const preview = panel.querySelector('#release-preview');
+  const title = preview.querySelector('#release-preview-title');
+  const description = preview.querySelector('#release-preview-description');
+  const close = preview.querySelector('.release-preview-close');
+  let anchor = null;
+  let pinned = false;
+  let hideTimer;
+
+  function hide(restoreFocus = false) {
+    clearTimeout(hideTimer);
+    if (!anchor) return;
+    const previous = anchor;
+    anchor = null;
+    pinned = false;
+    previous.setAttribute('aria-expanded', 'false');
+    preview.hidden = true;
+    if (restoreFocus && document.activeElement === close) previous.focus({ preventScroll: true });
+  }
+
+  function position() {
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const width = preview.offsetWidth;
+    const height = preview.offsetHeight;
+    const viewportWidth = document.documentElement.clientWidth;
+    const viewportHeight = document.documentElement.clientHeight;
+    const topEdge = 12;
+    const bottomEdge = viewportHeight - 12;
+    if (rect.bottom <= topEdge || rect.top >= bottomEdge) {
+      hide();
+      return;
+    }
+    const left = Math.max(12, Math.min(rect.left, viewportWidth - width - 12));
+    const below = rect.bottom + 7;
+    const top = below + height <= bottomEdge ? below : Math.max(topEdge, rect.top - height - 7);
+    preview.style.left = left + 'px';
+    preview.style.top = top + 'px';
+  }
+
+  function show(button, lock) {
+    clearTimeout(hideTimer);
+    if (anchor !== button) hide();
+    anchor = button;
+    pinned = lock;
+    title.textContent = button.querySelector('.release-feature-title').textContent;
+    description.textContent = button.dataset.description;
+    button.setAttribute('aria-expanded', 'true');
+    preview.hidden = false;
+    position();
+  }
+
+  function queueHide() {
+    if (pinned) return;
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => hide(), 200);
+  }
+
+  for (const button of panel.querySelectorAll('.release-feature')) {
+    button.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse' && !pinned) show(button, false);
+    });
+    button.addEventListener('pointerleave', () => {
+      if (anchor === button) queueHide();
+    });
+    button.addEventListener('click', () => {
+      if (pinned && anchor === button) hide();
+      else show(button, true);
+    });
+  }
+  preview.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+  preview.addEventListener('pointerleave', queueHide);
+  close.addEventListener('click', () => hide(true));
+  document.addEventListener('pointerdown', event => {
+    if (anchor && !preview.contains(event.target) && !event.target.closest('.release-feature')) hide();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && anchor) hide(true);
+  });
+  window.addEventListener('scroll', () => pinned ? position() : hide(), { passive: true });
+  window.addEventListener('resize', position);
+})();
+</script>
+<script type="application/json" id="contributor-ranking-data">
+{
+  "common": {"accountCount": 78, "submittedCount": 1014, "top": [{"login": "tonyliu312", "name": "liuzhiyu", "submitted": 80}, {"login": "weixin_45837958", "name": "chenxiying", "submitted": 70}, {"login": "yougq", "name": "youguoqing", "submitted": 58}, {"login": "gcw_xU0wjmFE", "name": "chensihui", "submitted": 56}, {"login": "yaojun97", "name": "yaojun97", "submitted": 49}, {"login": "zhongyiwei", "name": "zhongyiwei", "submitted": 43}, {"login": "d00650599", "name": "dingyong", "submitted": 37}, {"login": "xiaofeng6712", "name": "xiaofeng6712", "submitted": 37}, {"login": "guoyangsen", "name": "guoyangsen", "submitted": 35}, {"login": "qhily9991", "name": "dingminglei", "submitted": 35}]},
+  "manufacturing": {"accountCount": 3, "submittedCount": 5, "top": [{"login": "blueChild", "name": "xiangning", "submitted": 3}, {"login": "Cheshire-_", "name": "wanyujia", "submitted": 1}, {"login": "fengxianjia", "name": "fengxianjia", "submitted": 1}]},
+  "oil-chem": {"accountCount": 11, "submittedCount": 37, "top": [{"login": "zhaojun735", "name": "zhaojun", "submitted": 9}, {"login": "zhudequan2021", "name": "东篱撸猫", "submitted": 7}, {"login": "LiizzMM", "name": "LiizzMM", "submitted": 4}, {"login": "gcw_MzTAYnz2", "name": "guoyingwei", "submitted": 3}, {"login": "gurenyou", "name": "gurenyou", "submitted": 3}, {"login": "yuanruichen", "name": "yuanruichen", "submitted": 3}, {"login": "lizhongwei", "name": "lizhongwei", "submitted": 2}, {"login": "meixiaotiancai", "name": "槑", "submitted": 2}, {"login": "ZOUYONG20260606", "name": "春风十里", "submitted": 2}, {"login": "charlene_majingjing", "name": "charlene_ma", "submitted": 1}]},
+  "metallurgy": {"accountCount": 2, "submittedCount": 3, "top": [{"login": "it_camel", "name": "自在人", "submitted": 2}, {"login": "gurenyou", "name": "gurenyou", "submitted": 1}]},
+  "electric": {"accountCount": 14, "submittedCount": 51, "top": [{"login": "yuwenxing9698", "name": "yuwenxing", "submitted": 11}, {"login": "asd4e", "name": "wuliheng", "submitted": 9}, {"login": "gcw_nDee4TUv", "name": "guanenqiang", "submitted": 7}, {"login": "gryhan", "name": "年度任务", "submitted": 4}, {"login": "moxingpingce-poc", "name": "moxingpingce-poc", "submitted": 4}, {"login": "xiaoxing0126", "name": "Lemon", "submitted": 4}, {"login": "luffycloud", "name": "luffycloud", "submitted": 2}, {"login": "rainworm", "name": "rainworm", "submitted": 2}, {"login": "wubo233", "name": "wubo233", "submitted": 2}, {"login": "zhangpan19850417", "name": "gcw_bEdQlLYL", "submitted": 2}]},
+  "transportation": {"accountCount": 6, "submittedCount": 9, "top": [{"login": "guoshuo0828", "name": "guoshuo0828", "submitted": 3}, {"login": "shangyexin00572715", "name": "shangyexin00572715", "submitted": 2}, {"login": "baixinbs", "name": "baixinbs", "submitted": 1}, {"login": "qq_42832734", "name": "dlbben", "submitted": 1}, {"login": "xyn320382", "name": "xuyanan0619", "submitted": 1}, {"login": "yougq", "name": "youguoqing", "submitted": 1}]},
+  "pub-ai4s": {"accountCount": 3, "submittedCount": 4, "top": [{"login": "ww0205", "name": "ww0205", "submitted": 2}, {"login": "gcw_8EkgHHri", "name": "junyu_zh", "submitted": 1}, {"login": "guanwenting", "name": "guanwenting", "submitted": 1}]},
+  "pub-gov": {"accountCount": 1, "submittedCount": 1, "top": [{"login": "weixin_64674548", "name": "liukan", "submitted": 1}]},
+  "finance": {"accountCount": 0, "submittedCount": 0, "top": []},
+  "0.1.1": {"accountCount": 4, "submittedCount": 14, "top": [{"login": "nickylba", "name": "nickylba_liubin", "submitted": 7}, {"login": "wyt122", "name": "wangyuting", "submitted": 4}, {"login": "zcnyq", "name": "zcnyq", "submitted": 2}, {"login": "yougq", "name": "youguoqing", "submitted": 1}]},
+  "v0.1.4-rc1": {"accountCount": 0, "submittedCount": 0, "top": []}
+}
+</script>
+<script>
+(() => {
+  function renderMeter(labelValue, value, minimum, range) {
+    const meter = document.createElement('div');
+    meter.className = 'meter';
+    const track = document.createElement('span');
+    track.className = 'meter-track';
+    track.setAttribute('aria-hidden', 'true');
+    if (minimum < 0) {
+      track.classList.add('is-signed');
+      track.style.setProperty('--meter-zero', (-minimum / range * 100) + '%');
+    }
+    const fill = document.createElement('span');
+    fill.className = 'meter-fill';
+    fill.classList.toggle('is-negative', value < 0);
+    fill.style.left = ((Math.min(0, value) - minimum) / range * 100) + '%';
+    fill.style.width = (Math.abs(value) / range * 100) + '%';
+    track.append(fill);
+    const label = document.createElement('span');
+    label.className = 'meter-value';
+    label.textContent = labelValue;
+    meter.append(track, label);
+    return meter;
+  }
+
+  function enableComparison(section, ranked) {
+    const filter = section.querySelector('.filter');
+    const status = section.querySelector('[role="status"]');
+    const body = section.querySelector('tbody');
+    const headers = Array.from(section.querySelectorAll('[data-column]'));
+    const buttons = Array.from(filter.querySelectorAll('button[data-metric]'));
+    const rows = Array.from(body.rows, node => {
+      const labels = headers.map(header => node.cells[header.cellIndex].textContent.trim());
+      const values = labels.map(label => Number(label.replaceAll(',', '').replace('−', '-')));
+      return { node, labels, values };
+    });
+
+    function render(button, announce = false) {
+      const metric = button.dataset.metric;
+      const active = headers.findIndex(header => header.dataset.column === metric);
+      const values = rows.map(row => row.values[active]);
+      const minimum = Math.min(0, ...values);
+      const maximum = Math.max(0, ...values);
+      const range = maximum - minimum || 1;
+
+      for (const row of rows) {
+        headers.forEach((header, index) => {
+          const cell = row.node.cells[header.cellIndex];
+          const value = row.values[index];
+          const label = row.labels[index];
+          const selected = index === active;
+          cell.classList.toggle('selected', selected);
+          if (selected) cell.replaceChildren(renderMeter(label, value, minimum, range));
+          else cell.textContent = label;
+        });
+      }
+
+      if (ranked) {
+        const sorted = [...rows].sort((a, b) => b.values[active] - a.values[active]);
+        body.replaceChildren(...sorted.map(row => row.node));
+      }
+      headers.forEach((header, index) => {
+        header.classList.toggle('selected', index === active);
+        if (ranked && index === active) header.setAttribute('aria-sort', 'descending');
+        else header.removeAttribute('aria-sort');
+      });
+      for (const control of buttons) control.setAttribute('aria-pressed', String(control === button));
+      if (announce) {
+        const label = button.textContent;
+        status.textContent = ranked ? '已按' + label + '从高到低排列' : '当前对比指标为' + label;
+      }
+    }
+
+    render(buttons[0]);
+    filter.hidden = false;
+    filter.addEventListener('click', event => {
+      const button = event.target.closest('button[data-metric]');
+      if (button) render(button, true);
+    });
+  }
+
+  enableComparison(document.querySelector('#branches'), false);
+  enableComparison(document.querySelector('#industries'), true);
+  enableComparison(document.querySelector('#composition-net'), true);
+
+  const rankingData = JSON.parse(document.querySelector('#contributor-ranking-data').textContent);
+  const branchPicker = document.querySelector('#contributor-branches');
+  const branchButtons = Array.from(branchPicker.querySelectorAll('button[data-branch]'));
+  const rankSummary = document.querySelector('#contributor-summary');
+  const rankRows = document.querySelector('#contributor-rows');
+
+  function renderContributors(selected) {
+    const branch = selected.dataset.branch;
+    const { accountCount, submittedCount, top } = rankingData[branch];
+    const maximum = top[0]?.submitted || 1;
+    for (const button of branchButtons) button.setAttribute('aria-pressed', String(button === selected));
+    rankSummary.textContent = `${branch} · 显示 ${top.length} 个账号 · 分支共 ${accountCount} 个账号、${submittedCount} 个 PR`;
+    rankRows.replaceChildren(...top.map(({ login, name, submitted }, index) => {
+      const row = document.createElement('tr');
+      const rank = document.createElement('th');
+      rank.scope = 'row';
+      rank.textContent = String(index + 1);
+      row.append(rank);
+
+      const account = row.insertCell();
+      const link = document.createElement('a');
+      link.className = 'ranking-account';
+      link.href = 'https://atomgit.com/' + encodeURIComponent(login);
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = login;
+      account.append(link);
+      if (name && name !== login) {
+        const displayName = document.createElement('span');
+        displayName.className = 'ranking-name';
+        displayName.textContent = name;
+        account.append(displayName);
+      }
+
+      row.insertCell().append(renderMeter(String(submitted), submitted, 0, maximum));
+      return row;
+    }));
+  }
+
+  branchPicker.addEventListener('click', event => {
+    const button = event.target.closest('button[data-branch]');
+    if (button) renderContributors(button);
+  });
+  renderContributors(branchButtons[0]);
+  document.querySelector('#contributor-ranking').hidden = false;
+
+  const methods = document.querySelector('#methods');
+  function openMethods() { if (location.hash === '#methods') methods.open = true; }
+  document.querySelector('#nav-methods').addEventListener('click', () => { methods.open = true; });
+  window.addEventListener('hashchange', openMethods);
+  openMethods();
+
+  if ('IntersectionObserver' in window) {
+    const header = document.querySelector('.topbar');
+    const overviewLink = document.querySelector('#nav-overview');
+    const dataLink = document.querySelector('#nav-data');
+    const commonLink = document.querySelector('#nav-common');
+    const calendarLink = document.querySelector('#nav-sig-calendar');
+    const scopedLinks = [overviewLink, dataLink, commonLink, calendarLink];
+    const activeSections = new Set();
+    let overviewVisible = true;
+    function updateNavigation() {
+      const current = [
+        overviewVisible && overviewLink,
+        activeSections.has('sig-calendar') && calendarLink,
+        activeSections.has('common-delivery') && commonLink,
+        dataLink,
+      ].find(Boolean);
+      scopedLinks.forEach(link => link.removeAttribute('aria-current'));
+      current.setAttribute('aria-current', 'location');
+      header.classList.toggle('light', !overviewVisible);
+    }
+    new IntersectionObserver(([entry]) => {
+      overviewVisible = entry.isIntersecting;
+      updateNavigation();
+    }, { threshold: 0.22 }).observe(document.querySelector('#top'));
+    const sectionObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) activeSections.add(entry.target.id);
+        else activeSections.delete(entry.target.id);
+      }
+      updateNavigation();
+    }, { rootMargin: '-85px 0px -55% 0px' });
+    sectionObserver.observe(document.querySelector('#common-delivery'));
+    sectionObserver.observe(document.querySelector('#sig-calendar'));
+  }
+})();
+</script>
+<script>
+(() => {
+  const video = document.querySelector('#hero-video');
+  const animated = matchMedia('(min-width: 801px) and (prefers-reduced-motion: no-preference)');
+  const canObserve = 'IntersectionObserver' in window;
+  const visibleThreshold = .2;
+  let inView = !canObserve;
+
+  function syncPlayback() {
+    if (!animated.matches || !inView || document.hidden) {
+      video.pause();
+      return;
+    }
+    if (!video.hasAttribute('src')) video.src = video.dataset.src;
+    video.play().catch(() => {});
+  }
+
+  video.addEventListener('playing', () => video.classList.add('is-ready'));
+  video.addEventListener('error', () => video.classList.remove('is-ready'));
+  animated.addEventListener('change', syncPlayback);
+  document.addEventListener('visibilitychange', syncPlayback);
+  if (canObserve) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.intersectionRatio >= visibleThreshold;
+      syncPlayback();
+    }, { threshold: visibleThreshold }).observe(video.closest('.hero'));
+  }
+  syncPlayback();
+})();
+</script>
+</body>
+</html>

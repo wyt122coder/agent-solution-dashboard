@@ -55,7 +55,7 @@
   const preview = link(mount, "", "archify/common-capabilities.html");
   preview.className = "common-tree-preview";
   const previewText = add(preview, "div", "", "common-preview-copy");
-  add(previewText, "span", "Archify 能力图", "common-preview-title");
+  add(previewText, "span", "Feature能力图", "common-preview-title");
   add(previewText, "span", "从模块和能力下钻到 FEAT，查看特性说明和对应的 L2 设计。", "common-preview-caption");
   const previewAction = add(previewText, "span", "打开交互图", "common-preview-action");
   add(previewAction, "span", " ↗").setAttribute("aria-hidden", "true");

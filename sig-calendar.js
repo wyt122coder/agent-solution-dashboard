@@ -13,18 +13,21 @@
   const pageSize = 5;
   const months = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
 
-  // Meeting dates and agendas from sig_html/calendar.js.
+  // Meeting details from solution-SIG-calendar/calendar.js at 9aa4b03.
   const records = [
     {
       "month": "2026-11",
       "date": "2026-12-02",
       "time": "下午",
       "status": "待开始",
+      "platform": "welink线上",
+      "meetingId": "95297739",
+      "link": "https://app.huawei.com/wmeeting/join/95297739/LiberOkGjX64BPkxCwmcEVyXPjWurCEpR",
       "agenda": [
         "议题一：Agent Solution仓1130版本发布宣讲（付英杰） --- 20min",
         "议题二：智能体特性平台化建设相关内容（陶奕） --- 40min",
         "议题三：Agent Solution新特性解读及demo演示（袁作松） --- 40min",
-        "议题四：智能体平台网关协议及应用（尤国庆） --- 30min",
+        "议题四：智能体平台网关协议及应用（丁勇） --- 30min",
         "议题五：开放讨论"
       ]
     },
